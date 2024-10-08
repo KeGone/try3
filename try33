@@ -1,0 +1,39 @@
+class BooleanArray:
+    def __init__(self, bits):
+        self.bits = bits
+    def __str__(self):
+        return ''.join(str(int(b)) for b in self.bits)
+    def ssl(self, k):
+        return BooleanArray([b << k for b in self.bits])
+    def srl(self, k):
+        return BooleanArray([b >> k for b in self.bits])
+    def slc(self):
+        return BooleanArray([not b for b in self.bits])
+    def and_(self, other):
+        return BooleanArray([a and b for a, b in zip(self.bits, other.bits)])
+    def or_(self, other):
+        return BooleanArray([a or b for a, b in zip(self.bits, other.bits)])
+    def xor(self, other):
+        return BooleanArray([a ^ b for a, b in zip(self.bits, other.bits)])
+    def xnor(self, other):
+        return BooleanArray([not (a ^ b) for a, b in zip(self.bits, other.bits)])
+    def impl(self, other):
+        return BooleanArray([not a or b for a, b in zip(self.bits, other.bits)])
+    def flip(bit_string):
+        return BooleanArray([not b for b in bit_string])
+    def flip(bit_string, position):
+        bits = list(bit_string.bits)
+        bits[position] = not bits[position]
+        return BooleanArray(bits)
+ba1 = BooleanArray([True, False, True, False])
+ba2 = BooleanArray([False, True, False, True])
+print(ba1.ssl(1))  
+print(ba1.srl(1)) 
+print(ba1.slc()) 
+print(ba1.and_(ba2))  
+print(ba1.or_(ba2)) 
+print(ba1.xor(ba2)) 
+print(ba1.xnor(ba2))  
+print(ba1.impl(ba2))  
+print(BooleanArray.flip(ba1))  
+print(BooleanArray.flip(ba1,1)) 
